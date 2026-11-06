@@ -9,8 +9,17 @@ async function handleResponse(response) {
   return response.json()
 }
 
-export async function getItems() {
-  const response = await fetch(API_BASE)
+export async function getItems(search = '') {
+  const params = new URLSearchParams()
+
+  if (search.trim()) {
+    params.append('search', search.trim())
+  }
+
+  const response = await fetch(
+    `${API_BASE}?${params.toString()}`
+  )
+
   return handleResponse(response)
 }
 

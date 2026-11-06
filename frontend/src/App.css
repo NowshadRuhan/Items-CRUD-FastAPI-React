@@ -29,6 +29,25 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
+.search-container {
+  margin-bottom: 1.5rem;
+}
+
+.search-input {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-family: inherit;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #4361ee;
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+}
 .btn {
   padding: 0.5rem 1rem;
   border: none;

@@ -1,10 +1,19 @@
 import ItemCard from './ItemCard'
 
-export default function ItemList({ items, onEdit, onDelete }) {
+export default function ItemList({
+  items,
+  onEdit,
+  onDelete,
+  searchQuery
+}) {
   if (items.length === 0) {
     return (
       <div className="empty-state">
-        <p>No items yet. Create your first item!</p>
+        {searchQuery.trim() ? (
+          <p>No items found</p>
+        ) : (
+          <p>No items yet. Create your first item!</p>
+        )}
       </div>
     )
   }
