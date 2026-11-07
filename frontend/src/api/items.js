@@ -9,12 +9,20 @@ async function handleResponse(response) {
   return response.json()
 }
 
-export async function getItems(search = '') {
+
+export async function getItems(
+  search = '',
+  sortBy = 'title',
+  sortOrder = 'asc'
+) {
   const params = new URLSearchParams()
 
   if (search.trim()) {
     params.append('search', search.trim())
   }
+
+  params.append('sort_by', sortBy)
+  params.append('sort_order', sortOrder)
 
   const response = await fetch(
     `${API_BASE}?${params.toString()}`

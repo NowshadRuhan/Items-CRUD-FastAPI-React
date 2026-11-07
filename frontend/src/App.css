@@ -48,6 +48,34 @@
   border-color: #4361ee;
   box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
 }
+
+
+.sorting-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.sorting-container label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #555;
+}
+
+.sorting-container select {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 0.875rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+
 .btn {
   padding: 0.5rem 1rem;
   border: none;
