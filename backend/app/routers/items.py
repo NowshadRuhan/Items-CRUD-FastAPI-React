@@ -12,9 +12,24 @@ def create_item(item: schemas.ItemCreate, db: Session = Depends(get_db)):
     return crud.create_item(db, item)
 
 
+
 @router.get("", response_model=list[schemas.ItemResponse])
-def list_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    return crud.get_items(db, skip=skip, limit=limit)
+def list_items(
+    skip: int = 0,
+    limit: int = 100,
+    search: str = "",
+    sort_by: str = "title",
+    sort_order: str = "asc",
+    db: Session = Depends(get_db)
+):
+    return crud.get_items(
+        db,
+        skip=skip,
+        limit=limit,
+        search=search,
+        sort_by=sort_by,
+        sort_order=sort_order
+    )
 
 
 @router.get("/{item_id}", response_model=schemas.ItemResponse)

@@ -8,6 +8,9 @@ function App() {
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
+  const [sortBy, setSortBy] = useState('title')
+  const [sortOrder, setSortOrder] = useState('asc')
   const [view, setView] = useState('list')
   const [editingItem, setEditingItem] = useState(null)
 
@@ -15,14 +18,18 @@ function App() {
     try {
       setLoading(true)
       setError('')
-      const data = await itemsApi.getItems()
+      const data = await itemsApi.getItems(
+        searchTerm,
+        sortBy,
+        sortOrder
+      )
       setItems(data)
     } catch (err) {
       setError(err.message)
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [searchTerm, sortBy, sortOrder])
 
   useEffect(() => {
     loadItems()
@@ -79,13 +86,57 @@ function App() {
 
       <main className="app-main">
         {error && view === 'list' && <div className="error-banner">{error}</div>}
+        {view === 'list' && (
+          <>
+            <div className="search-container">
+              <input
+                type="text"
+                className="search-input"
+                placeholder="Search items by title..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+
+            <div className="sorting-container">
+
+              <label>
+                Sort by:
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                >
+                  <option value="title">Title</option>
+                  <option value="created_at">Creation Date</option>
+                </select>
+              </label>
+
+              <label>
+                Order:
+                <select
+                  value={sortOrder}
+                  onChange={(e) => setSortOrder(e.target.value)}
+                >
+                  <option value="asc">Ascending</option>
+                  <option value="desc">Descending</option>
+                </select>
+              </label>
+
+            </div>
+          </>
+        )}
 
         {view === 'form' ? (
           <ItemForm item={editingItem} onSubmit={handleSubmit} onCancel={handleCancel} />
         ) : loading ? (
           <div className="empty-state">Loading items...</div>
         ) : (
-          <ItemList items={items} onEdit={handleEdit} onDelete={handleDelete} />
+          <ItemList
+            items={items}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+            searchQuery={searchTerm}
+          />
         )}
       </main>
     </div>
